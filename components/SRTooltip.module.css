@@ -1,0 +1,19 @@
+.srtooltip_displayNone {
+  display: none !important;
+}
+
+.srtooltip_displayBlock {
+  display: block !important;
+}
+
+.srtooltip {
+  max-width: fit-content;
+  max-height: fit-content;
+  color: white;
+  background-color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1000;
+}
