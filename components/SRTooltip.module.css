@@ -9,11 +9,27 @@
 .srtooltip {
   max-width: fit-content;
   max-height: fit-content;
+  position: absolute;
+  z-index: 1000;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.srtooltip_text {
   color: white;
   background-color: black;
   text-align: center;
   border-radius: 6px;
   padding: 5px;
+}
+
+.srtooltip_text::after {
+  content: "";
   position: absolute;
-  z-index: 1000;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
 }

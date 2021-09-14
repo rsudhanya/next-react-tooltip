@@ -1,30 +1,19 @@
 import React from "react";
-import {
-  Fragment,
-  FunctionComponent,
-  ReactNode,
-  useRef,
-  useState,
-} from "react";
+import { Fragment, FunctionComponent, useRef, useState } from "react";
+import { TooltipProp } from "./SRTooltip.model";
 
 import styles from "./SRTooltip.module.css";
 
-type TooltipProp = {
-  jsxTooltipProps: ReactNode;
-  children: ReactNode;
-};
-
 const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [tooltipPosition, setTooltipPosition] = useState<number>(0);
+  const [tooltipTopPosition, setTooltipTopPosition] = useState<number>(0);
   const tooltipParent = useRef(null);
 
   const showContent = () => {
     if (tooltipParent && tooltipParent.current) {
       const tooltipParentElement: HTMLElement = tooltipParent.current;
       const position = tooltipParentElement.getBoundingClientRect();
-      console.log(position);
-      setTooltipPosition(Math.round((position.left + position.right) / 2));
+      setTooltipTopPosition(Math.round(position.bottom));
     }
     setIsVisible(true);
   };
@@ -48,14 +37,29 @@ const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
         return child;
       })}
       <div
-        style={{ left: `${tooltipPosition}px` }}
+        // style={{ top: `${tooltipTopPosition}px` }}
         className={`${styles.srtooltip} ${
+          props.isHTMLContent ? "" : styles.srtooltip_text
+        } ${
           isVisible
             ? styles.srtooltip_displayBlock
             : styles.srtooltip_displayNone
         }`}
       >
-        {props.jsxTooltipProps}
+        {!props.isHTMLContent && <span>{props.jsxTooltipProps}</span>}
+
+        {props.isHTMLContent &&
+          React.Children.map(props.jsxTooltipProps, (child, index) => {
+            if (React.isValidElement(child)) {
+              if (index === 0)
+                return React.cloneElement(child, {
+                  onMouseOver: showContent,
+                  onMouseLeave: hideContent,
+                });
+              else return React.cloneElement(child);
+            }
+            return child;
+          })}
       </div>
     </Fragment>
   );
