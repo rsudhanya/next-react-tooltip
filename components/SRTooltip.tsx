@@ -14,12 +14,10 @@ const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
     if (tooltipParent && tooltipParent.current) {
       const tooltipParentElement: HTMLElement = tooltipParent.current;
       const position = tooltipParentElement.getBoundingClientRect();
-      console.log(position);
       setTooltipLeftPosition(Math.round(position.left));
       setToolTipTopPosition(Math.round(position.bottom));
     }
     setIsVisible(true);
-    console.log(tooltipLeftPosition);
   };
 
   const hideContent = () => {
@@ -27,7 +25,7 @@ const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
   };
 
   return (
-    <Fragment>
+    <div>
       {React.Children.map(props.children, (child, index) => {
         if (React.isValidElement(child)) {
           if (index === 0)
@@ -40,20 +38,21 @@ const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
         }
         return child;
       })}
+
       <div
-        style={
-          !props.isHTMLContent
-            ? {
-                left: `${tooltipLeftPosition + 60}px`,
-                position: "absolute",
-                top: `${tooltipTopPosition + 25}px`,
-              }
-            : {
-                left: `${tooltipLeftPosition + 60}px`,
-                position: "absolute",
-                top: `${tooltipTopPosition + 75}px`,
-              }
-        }
+        // style={
+        //   !props.isHTMLContent
+        //     ? {
+        //         left: `${tooltipLeftPosition + 60}px`,
+        //         position: "absolute",
+        //         top: `${tooltipTopPosition + 25}px`,
+        //       }
+        //     : {
+        //         left: `${tooltipLeftPosition + 60}px`,
+        //         position: "absolute",
+        //         top: `${tooltipTopPosition + 75}px`,
+        //       }
+        // }
         className={`${styles.srtooltip} ${
           props.isHTMLContent ? "" : styles.srtooltip_text
         } ${
@@ -77,7 +76,7 @@ const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
             return child;
           })}
       </div>
-    </Fragment>
+    </div>
   );
 };
 

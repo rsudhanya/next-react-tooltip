@@ -7,9 +7,9 @@
 }
 
 .srtooltip {
-  max-width: fit-content;
-  max-height: fit-content;
   position: absolute;
+  /* max-width: fit-content;
+  max-height: fit-content; */
   z-index: 1000;
   transform: translate(-50%, -50%);
 }
