@@ -7,12 +7,12 @@ const Home: NextPage = () => {
   const tooltipContent2 = (
     <div className="card">
       <div className="card-image waves-effect waves-block waves-light">
-        <img
+        {/* <img
           className="activator"
           src="https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY"
-          height="100"
-          width="100"
-        />
+          height="50"
+          width="300"
+        /> */}
       </div>
       <div className="card-content">
         <span className="card-title activator grey-text text-darken-4">
@@ -35,18 +35,34 @@ const Home: NextPage = () => {
   );
 
   return (
-    <div className="container">
+    <div>
       <br />
       <br />
-      <div className="center">
+      <div>
         <SRTooltip jsxTooltipProps={tooltipContent1} isHTMLContent={false}>
           <button className="btn waves-effect waves-light" type="button">
             Submit1
             <i className="material-icons right">send</i>
           </button>
         </SRTooltip>
-        <br />
-        <br />
+        &nbsp;
+        <SRTooltip jsxTooltipProps={tooltipContent2} isHTMLContent={true}>
+          <button className="btn waves-effect waves-light" type="button">
+            Submit2
+            <i className="material-icons right">send</i>
+          </button>
+        </SRTooltip>
+      </div>
+      <br />
+      <br />
+      <div>
+        <SRTooltip jsxTooltipProps={tooltipContent1} isHTMLContent={false}>
+          <button className="btn waves-effect waves-light" type="button">
+            Submit1
+            <i className="material-icons right">send</i>
+          </button>
+        </SRTooltip>
+        &nbsp;
         <SRTooltip jsxTooltipProps={tooltipContent2} isHTMLContent={true}>
           <button className="btn waves-effect waves-light" type="button">
             Submit2
