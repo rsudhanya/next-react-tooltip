@@ -6,16 +6,20 @@ import styles from "./SRTooltip.module.css";
 
 const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [tooltipTopPosition, setTooltipTopPosition] = useState<number>(0);
+  const [tooltipLeftPosition, setTooltipLeftPosition] = useState<number>(0);
+  const [tooltipTopPosition, setToolTipTopPosition] = useState<number>(0);
   const tooltipParent = useRef(null);
 
   const showContent = () => {
     if (tooltipParent && tooltipParent.current) {
       const tooltipParentElement: HTMLElement = tooltipParent.current;
       const position = tooltipParentElement.getBoundingClientRect();
-      setTooltipTopPosition(Math.round(position.bottom));
+      console.log(position);
+      setTooltipLeftPosition(Math.round(position.left));
+      setToolTipTopPosition(Math.round(position.bottom));
     }
     setIsVisible(true);
+    console.log(tooltipLeftPosition);
   };
 
   const hideContent = () => {
@@ -37,7 +41,19 @@ const SRTooltip: FunctionComponent<TooltipProp> = (props: TooltipProp) => {
         return child;
       })}
       <div
-        // style={{ top: `${tooltipTopPosition}px` }}
+        style={
+          !props.isHTMLContent
+            ? {
+                left: `${tooltipLeftPosition + 60}px`,
+                position: "absolute",
+                top: `${tooltipTopPosition + 25}px`,
+              }
+            : {
+                left: `${tooltipLeftPosition + 60}px`,
+                position: "absolute",
+                top: `${tooltipTopPosition + 75}px`,
+              }
+        }
         className={`${styles.srtooltip} ${
           props.isHTMLContent ? "" : styles.srtooltip_text
         } ${
